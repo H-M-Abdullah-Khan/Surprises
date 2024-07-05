@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+  font-family: "Ubuntu", sans-serif;
+  background-color: black;
+  color: white;
+}
+.html circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 472;
+  stroke-dashoffset: 472;
+  animation: anime1 1s linear forwards;
+}
+@keyframes anime1{
+  100%{
+    stroke-dashoffset: 1;
+  }
+}
+.css circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 472;
+  stroke-dashoffset: 472;
+  animation: anime2 1s linear forwards;
+}
+@keyframes anime2{
+  100%{
+    stroke-dashoffset: 110;
+  }
+}
+.java circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 472;
+  stroke-dashoffset: 472;
+  animation: anime3 1s linear forwards;
+}
+@keyframes anime3{
+  100%{
+    stroke-dashoffset: 165;
+  }
+}
+.uiux circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 427;
+  stroke-dashoffset: 427;
+  animation: anime4 1s linear forwards;
+}
+@keyframes anime4{
+  100%{
+    stroke-dashoffset: 30;
+  }
+}
+.CYBERSECURITY circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 427;
+  stroke-dashoffset: 427;
+  animation: anime5 1s linear forwards;
+}
+@keyframes anime5{
+  100%{
+    stroke-dashoffset: 360;
+  }
+}
+.fast circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 427;
+  stroke-dashoffset: 427;
+  animation: anime6 1s linear forwards;
+}
+@keyframes anime6{
+  100%{
+    stroke-dashoffset: 50;
+  }
+}
+.visual-disign circle{
+  fill: none;
+  stroke: #A0968C;
+  stroke-width: 20px;
+  stroke-dasharray: 427;
+  stroke-dashoffset: 427;
+  animation: anime7 1s linear forwards;
+}
+@keyframes anime7{
+  100%{
+    stroke-dashoffset: 70;
+  }
+}
+.image-container img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.image-container1 img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container1 img:hover {
+  transform: scale(0.95);
+  cursor: pointer;
+}
