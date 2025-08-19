@@ -194,6 +194,79 @@
                 left: 150px;
             }
         }
+
+        .apple-style {
+            position: relative;
+            min-height: 400vh;
+            background: #000;
+            color: #fff;
+            view-timeline: --para;
+        }
+
+        .text-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-container p {
+            position: relative;
+            margin: 0;
+            font-size: clamp(1.5rem, 2vw + 1rem, 3rem);
+            line-height: 1.4;
+            max-width: 70ch;
+        }
+
+        .line {
+            display: block;
+            opacity: 0.25;
+            animation: fade-line both ease;
+            animation-timeline: --para;
+        }
+
+        @keyframes fade-line {
+            0% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.25;
+            }
+        }
+
+        .first {
+            animation-range: cover 0% cover 25%;
+            color: #fff;
+        }
+
+        .second {
+            animation-range: cover 25% cover 50%;
+        }
+
+        .third {
+            animation-range: cover 50% cover 75%;
+        }
+
+        .fourth {
+            animation-range: cover 75% cover 100%;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #101010, #000);
+            z-index: -1;
+        }
     </style>
 </head>
 
@@ -226,34 +299,56 @@
     <section class="next-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <h2 class="text-uppercase" style="font-size: 5rem;">About Me
-                    </h2>
-                    <p class="fs-5">
-                        My Name Is Hafiz Muhammad Abdullah Khan, A 19-Year-Old Self-Motivated Full Stack Web Developer
-                        With A Deep Passion For
-                        Coding, Cybersecurity, Teaching, And The Quran. Born And Raised In Karachi, Pakistan 🇵🇰, My
-                        Journey Began Not In
-                        Code—But With The Holy Quran.
-
-                        By The Age Of 12, I Had Memorized The Quran, Developing Strong Discipline, Focus, And Mental
-                        Clarity. Later, This
-                        Foundation Evolved Into A Desire To Solve Complex Problems Using Technology. That’s When I
-                        Discovered Programming.
-
-                        Currently, I’m Pursuing A Diploma In Software Engineering At Aptech, While Simultaneously
-                        Contributing To Real-World
-                        Projects, Teaching Short Courses, And Continuously Improving My Skillset. I Firmly Believe In
-                        The Power Of Tech To
-                        Change Lives—And I’m On A Mission To Become A World-Class Ethical Hacker And Software Engineer.
-                    </p>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8 col-sm-12 col-md-12">
+                    <div class="apple-style">
+                        <div class="text-container fw-bold">
+                            <p>
+                                <span class="line first text-uppercase"
+                                    style="font-size: 9rem; text-align: center; letter-spacing: 40px; color: #ffffff; font-family: 'Anurati', sans-serif">
+                                    About
+                                    Me
+                                </span>
+                                <span class="line second" style="font-size: 30px;">My Name Is Hafiz Muhammad Abdullah
+                                    Khan, A 19-Year-Old
+                                    Self-Motivated Full Stack Web
+                                    Developer
+                                    With A Deep Passion For
+                                    Coding, Cybersecurity, Teaching, And The Quran. Born And Raised In Karachi,
+                                    Pakistan, My
+                                    Journey Began Not In
+                                    Code—But With The Holy Quran.</span>
+                                <span class="line third" style="font-size: 30px;">By The Age Of 12, I Had Memorized The
+                                    Quran,
+                                    Developing Strong Discipline,
+                                    Focus, And
+                                    Mental
+                                    Clarity. Later, This
+                                    Foundation Evolved Into A Desire To Solve Complex Problems Using Technology. That’s
+                                    When
+                                    I
+                                    Discovered Programming..</span>
+                                <span class="line fourth" style="font-size: 30px;">Personalized Spatial Audio that
+                                    immerses you in
+                                    soundCurrently, I’m Pursuing A Diploma In Software Engineering At Aptech, While
+                                    Simultaneously
+                                    Contributing To Real-World
+                                    Projects, Teaching Short Courses, And Continuously Improving My Skillset. I Firmly
+                                    Believe In
+                                    The Power Of Tech To
+                                    Change Lives—And I’m On A Mission To Become A World-Class Ethical Hacker And
+                                    Software
+                                    Engineer.</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2"></div>
+                <div class="col-lg-2"></div>
             </div>
         </div>
-
     </section>
+
+
 
     <script>
         const loader = document.getElementById("loader");
