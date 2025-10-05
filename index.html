@@ -32,6 +32,62 @@
             overflow: hidden;
         }
 
+        /* Start Screen */
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .start-content {
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .start-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff8a00, #ff4081, #ff8a00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+        }
+
+        .audio-note {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
         /* Canvas for realistic fireworks */
         #fireworks-canvas {
             position: absolute;
@@ -40,6 +96,55 @@
             width: 100%;
             height: 100%;
             z-index: 2;
+        }
+
+        /* Audio Controls */
+        .audio-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 40;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1s;
+        }
+
+        .sound-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .sound-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .audio-controls:hover .volume-slider {
+            opacity: 1;
         }
 
         /* Plane - Hidden at start */
@@ -371,6 +476,16 @@
                 font-size: 0.9rem;
                 bottom: 20px;
             }
+
+            .audio-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+
+            .start-title {
+                font-size: 2.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -382,17 +497,51 @@
                 font-size: 1rem;
                 padding: 15px;
             }
+
+            .audio-controls {
+                transform: scale(0.9);
+            }
+
+            .start-title {
+                font-size: 2rem;
+            }
+
+            .start-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="scene">
+    <!-- Start Screen -->
+    <div class="start-screen" id="startScreen">
+        <div class="start-content">
+            <h1 class="start-title">Happy Teacher's Day! 🎉</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 20px; color: rgba(255,255,255,0.8);">
+                A special celebration for an amazing teacher
+            </p>
+            <button class="start-btn" id="startBtn">
+                Start Celebration 🎊
+            </button>
+            <p class="audio-note">
+            </p>
+        </div>
+    </div>
+
+    <div class="scene" id="mainScene" style="display: none;">
         <!-- Stars Background -->
         <div class="stars-background" id="stars-background"></div>
 
         <!-- Canvas for realistic fireworks -->
         <canvas id="fireworks-canvas"></canvas>
+
+        <!-- Audio Controls -->
+        <div class="audio-controls">
+            <button class="sound-btn" id="soundToggle">🔊</button>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+        </div>
 
         <!-- Plane with Banner - Hidden at start -->
         <div class="plane-container">
@@ -453,8 +602,7 @@
                         Thank you for being more than just a teacher - for being a mentor, a guide, and an
                         inspiration.<br><br>
                         With deepest gratitude,<br>
-                        Your Student <br>
-                        H M Abdullah
+                        Your Student
                     </div>
                 </div>
             </div>
@@ -477,7 +625,133 @@
         </div>
     </div>
 
+    <!-- Audio Context for better sound management -->
     <script>
+        // Audio Manager for local MP3 files
+        class AudioManager {
+            constructor() {
+                this.audioContext = null;
+                this.isMuted = false;
+                this.volume = 0.5;
+                this.soundBuffers = [];
+                this.isInitialized = false;
+
+                // List of your local firework MP3 files
+                this.localSoundFiles = [
+                    'Firework.mp3',
+                    'Firework.mp3',
+                    'Firework.mp3',
+                    'Firework.mp3'
+                ];
+            }
+
+            async init() {
+                try {
+                    // Create audio context
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+                    // Load local sound files
+                    await this.loadLocalSounds();
+                    this.isInitialized = true;
+                    console.log('Audio initialized successfully with local files');
+                } catch (error) {
+                    console.log('Audio initialization failed:', error);
+                    // Fallback to simple HTML audio if Web Audio API fails
+                    this.setupFallbackAudio();
+                }
+            }
+
+            async loadLocalSounds() {
+                for (const filename of this.localSoundFiles) {
+                    try {
+                        const response = await fetch(filename);
+                        if (!response.ok) {
+                            throw new Error(`Failed to load ${filename}: ${response.status}`);
+                        }
+                        const arrayBuffer = await response.arrayBuffer();
+                        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+                        this.soundBuffers.push(audioBuffer);
+                        console.log(`Loaded sound: ${filename}`);
+                    } catch (error) {
+                        console.log(`Error loading ${filename}:`, error);
+                    }
+                }
+
+                // If no sounds loaded, use fallback
+                if (this.soundBuffers.length === 0) {
+                    this.setupFallbackAudio();
+                }
+            }
+
+            setupFallbackAudio() {
+                console.log('Setting up fallback audio system');
+                // Create simple HTML audio elements as fallback
+                this.fallbackAudioElements = [];
+                for (const filename of this.localSoundFiles) {
+                    const audio = new Audio();
+                    audio.src = filename;
+                    audio.preload = 'auto';
+                    this.fallbackAudioElements.push(audio);
+                }
+                this.isInitialized = true;
+            }
+
+            playRandomFireworkSound() {
+                if (!this.isInitialized || this.isMuted) return;
+
+                try {
+                    if (this.soundBuffers.length > 0) {
+                        // Use Web Audio API
+                        const randomBuffer = this.soundBuffers[Math.floor(Math.random() * this.soundBuffers.length)];
+                        const source = this.audioContext.createBufferSource();
+                        const gainNode = this.audioContext.createGain();
+
+                        source.buffer = randomBuffer;
+                        gainNode.gain.value = this.volume;
+
+                        source.connect(gainNode);
+                        gainNode.connect(this.audioContext.destination);
+
+                        source.start(0);
+                    } else if (this.fallbackAudioElements && this.fallbackAudioElements.length > 0) {
+                        // Use fallback HTML audio
+                        const randomAudio = this.fallbackAudioElements[Math.floor(Math.random() * this.fallbackAudioElements.length)];
+                        const audioClone = randomAudio.cloneNode();
+                        audioClone.volume = this.volume;
+                        audioClone.play().catch(e => console.log('Fallback audio play failed:', e));
+                    }
+                } catch (error) {
+                    console.log('Error playing sound:', error);
+                }
+            }
+
+            toggleMute() {
+                this.isMuted = !this.isMuted;
+                const button = document.getElementById('soundToggle');
+                button.textContent = this.isMuted ? '🔇' : '🔊';
+            }
+
+            setVolume(value) {
+                this.volume = parseFloat(value);
+            }
+        }
+
+        // Initialize audio manager
+        const audioManager = new AudioManager();
+
+        // Start button functionality
+        document.getElementById('startBtn').addEventListener('click', async function () {
+            // Hide start screen
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('mainScene').style.display = 'block';
+
+            // Initialize audio
+            await audioManager.init();
+
+            // Start the main animation
+            initMainAnimation();
+        });
+
         // Create white star dots in background
         function createStarDots() {
             const starsContainer = document.getElementById('stars-background');
@@ -599,6 +873,9 @@
             }
 
             explode() {
+                // Play firework sound
+                audioManager.playRandomFireworkSound();
+
                 const particleCount = 80 + Math.floor(Math.random() * 50);
                 const power = 3 + Math.random() * 2;
 
@@ -771,8 +1048,17 @@
             }
         });
 
-        // Initialize
-        function init() {
+        // Audio controls
+        document.getElementById('soundToggle').addEventListener('click', () => {
+            audioManager.toggleMute();
+        });
+
+        document.getElementById('volumeSlider').addEventListener('input', (e) => {
+            audioManager.setVolume(e.target.value);
+        });
+
+        // Initialize main animation
+        function initMainAnimation() {
             createStarDots();
             animate();
 
@@ -802,9 +1088,6 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
-        // Start the show
-        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 
