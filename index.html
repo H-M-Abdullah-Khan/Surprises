@@ -1,400 +1,810 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link href="https://fonts.cdnfonts.com/css/anurati" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
-        integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
-        crossorigin="anonymous"></script>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Happy Teacher's Day with Real Fireworks</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
-            background: #000;
-            overflow-x: hidden;
-            /* allow vertical scroll after first section */
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            height: 100vh;
+            width: 100vw;
+            touch-action: pan-y;
+        }
 
-        .loader {
-            position: fixed;
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Canvas for realistic fireworks */
+        #fireworks-canvas {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            flex-direction: column;
-            color: white;
-            font-size: 1.5rem;
-            font-family: Arial, sans-serif;
+            height: 100%;
+            z-index: 2;
         }
 
-        .background-text {
+        /* Plane - Hidden at start */
+        .plane-container {
             position: absolute;
+            top: 40%;
+            left: -300px;
+            z-index: 20;
+            animation: flyIn 8s forwards;
+            animation-delay: 10s;
+            transform: scale(1.5);
+            opacity: 0;
+            /* Hidden at start */
+        }
+
+        .plane {
+            position: relative;
+            width: 200px;
+            height: 60px;
+        }
+
+        .plane-body {
+            width: 140px;
+            height: 30px;
+            background: #f8f8f8;
+            border-radius: 15px 5px 5px 15px;
+            position: relative;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .plane-wing {
+            position: absolute;
+            width: 80px;
+            height: 15px;
+            background: #e0e0e0;
+            top: -10px;
+            left: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .plane-tail {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #e0e0e0;
+            top: 8px;
+            right: 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .plane-window {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #87CEEB;
+            border-radius: 50%;
+            top: 10px;
+            left: 20px;
+            box-shadow:
+                25px 0 0 #87CEEB,
+                50px 0 0 #87CEEB,
+                75px 0 0 #87CEEB;
+        }
+
+        .banner {
+            position: absolute;
+            top: -50px;
+            left: 60px;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            white-space: nowrap;
+            transform: rotate(-5deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Dancing Script', cursive;
+            z-index: 25;
+        }
+
+        /* Message Container with Swipe */
+        .message-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+            animation-delay: 15s;
+            overflow: hidden;
+        }
+
+        .swipe-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .paragraph {
+            position: absolute;
+            width: 90%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 12rem;
-            font-family: 'Anurati', sans-serif;
-            color: rgba(255, 255, 255, 0.25);
-            letter-spacing: 5rem;
-            text-transform: uppercase;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             pointer-events: none;
-            z-index: 1;
         }
 
-        spline-viewer {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            z-index: 2;
-            right: -150px;
+        .paragraph.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
         }
 
-        .next-section {
-            height: 100vh;
-            background: #000000;
-            color: white;
+        .paragraph.next {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateX(100px) scale(0.9);
         }
 
-        /* Navbar */
-        .navbar {
-            position: fixed;
+        .paragraph.prev {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateX(-100px) scale(0.9);
+        }
+
+        .main-message {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            background: linear-gradient(to right, #ff8a00, #ff4081, #ff8a00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 2s infinite alternate;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .sub-message {
+            font-size: 1.5rem;
+            max-width: 90%;
+            margin: 0 auto;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        /* Swipe Instructions */
+        .swipe-instruction {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            z-index: 35;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            animation-delay: 16s;
+        }
+
+        .swipe-arrow {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        /* Progress Dots */
+        .progress-dots {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 35;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #FFD700;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px #FFD700;
+        }
+
+        /* Stars Background */
+        .stars-background {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            /* transparent black */
-            backdrop-filter: blur(8px);
-            /* glass effect */
-            z-index: 999;
-            /* upar rahe */
-        }
-
-        .navbar .logo {
-            font-family: 'Anurati', sans-serif;
-            font-size: 2rem;
-            color: #fff;
-            letter-spacing: 0.5rem;
-        }
-
-        .navbar .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar .nav-links li a {
-            text-decoration: none;
-            color: white;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .navbar .nav-links li a:hover {
-            color: #00ffe5;
-            /* hover neon effect */
-        }
-
-        /* Add transitions for smooth effect */
-        spline-viewer,
-        .background-text {
-            transition: all 1s ease;
-        }
-
-        /* Active state after scroll */
-        .scrolled spline-viewer {
-            transform: translateX(20%) scale(0.9);
-        }
-
-        .scrolled .background-text {
-            color: rgba(255, 255, 255, 1);
-            transform: translate(-70%, -50%);
-            /* left move */
-        }
-
-        section,
-        .spline-container {
-            width: 100%;
-            height: 100vh;
-            /* fullscreen sections */
-        }
-
-        /* Smooth transition */
-        spline-viewer,
-        .background-text {
-            transition: all 1s ease;
-        }
-
-        /* Animated state */
-        .animate spline-viewer {
-            transform: translateX(30%) scale(0.9);
-        }
-
-        .animate .background-text {
-            color: #fff;
-            transform: translate(-70%, -50%);
-            font-size: 80px;
-            text-align: center;
-        }
-
-        .loader-gif {
-            width: 200px;
-            /* apni marzi ka size */
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .loading-line {
-            width: 150px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-            position: relative;
-            border-radius: 2px;
-        }
-
-        .loading-line::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -150px;
-            width: 150px;
             height: 100%;
-            background: #fff;
-            animation: loadingAnim 1.2s linear infinite;
-            border-radius: 2px;
+            z-index: 1;
         }
 
-        @keyframes loadingAnim {
+        .star-dot {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        /* Animations */
+        @keyframes flyIn {
             0% {
-                left: -150px;
+                left: -300px;
+                transform: scale(1.5) translateY(0);
+                opacity: 1;
+                /* Becomes visible when animation starts */
+            }
+
+            25% {
+                transform: scale(1.5) translateY(-20px);
+            }
+
+            50% {
+                transform: scale(1.5) translateY(10px);
+            }
+
+            75% {
+                transform: scale(1.5) translateY(-15px);
             }
 
             100% {
-                left: 150px;
+                left: 120%;
+                transform: scale(1.5) translateY(0);
+                opacity: 1;
             }
         }
 
-        .apple-style {
-            position: relative;
-            min-height: 400vh;
-            background: #000;
-            color: #fff;
-            view-timeline: --para;
-        }
-
-        .text-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .text-container p {
-            position: relative;
-            margin: 0;
-            font-size: clamp(1.5rem, 2vw + 1rem, 3rem);
-            line-height: 1.4;
-            max-width: 70ch;
-        }
-
-        .line {
-            display: block;
-            opacity: 0.25;
-            animation: fade-line both ease;
-            animation-timeline: --para;
-        }
-
-        @keyframes fade-line {
+        @keyframes fadeIn {
             0% {
-                opacity: 0.25;
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            }
+
+            100% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
             }
 
             50% {
                 opacity: 1;
             }
+        }
 
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
             100% {
-                opacity: 0.25;
+                transform: translateX(0);
+            }
+
+            40% {
+                transform: translateX(-5px);
+            }
+
+            60% {
+                transform: translateX(5px);
             }
         }
 
-        .first {
-            animation-range: cover 0% cover 25%;
-            color: #fff;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-message {
+                font-size: 2.8rem;
+            }
+
+            .sub-message {
+                font-size: 1.2rem;
+                padding: 20px;
+            }
+
+            .plane-container {
+                transform: scale(1.2);
+            }
+
+            .banner {
+                font-size: 1.1rem;
+                padding: 10px 20px;
+            }
+
+            .swipe-instruction {
+                font-size: 0.9rem;
+                bottom: 20px;
+            }
         }
 
-        .second {
-            animation-range: cover 25% cover 50%;
-        }
+        @media (max-width: 480px) {
+            .main-message {
+                font-size: 2.2rem;
+            }
 
-        .third {
-            animation-range: cover 50% cover 75%;
-        }
-
-        .fourth {
-            animation-range: cover 75% cover 100%;
-        }
-
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, #101010, #000);
-            z-index: -1;
+            .sub-message {
+                font-size: 1rem;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <img src="Loader.gif" alt="Loading..." class="loader-gif">
-        <div class="loading-line"></div>
-    </div>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">ABDULLAH</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <!-- Spline Section -->
-    <div class="spline-container" id="splineWrapper">
-        <div class="background-text">ABDULLAH</div>
-        <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js"></script>
-        <spline-viewer id="spline" url="https://prod.spline.design/Y3WTWyzcezpYSTzN/scene.splinecode"></spline-viewer> -->
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js"></script>
-        <spline-viewer id="spline" url="https://prod.spline.design/cbpAxPNxAGHsSNdO/scene.splinecode"></spline-viewer>
-    </div>
+    <div class="scene">
+        <!-- Stars Background -->
+        <div class="stars-background" id="stars-background"></div>
 
-    <!-- Next Section -->
-    <section class="next-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8 col-sm-12 col-md-12">
-                    <div class="apple-style">
-                        <div class="text-container fw-bold">
-                            <p>
-                                <span class="line first text-uppercase"
-                                    style="font-size: 9rem; text-align: center; letter-spacing: 40px; color: #ffffff; font-family: 'Anurati', sans-serif">
-                                    About
-                                    Me
-                                </span>
-                                <span class="line second" style="font-size: 30px;">My Name Is Hafiz Muhammad Abdullah
-                                    Khan, A 19-Year-Old
-                                    Self-Motivated Full Stack Web
-                                    Developer
-                                    With A Deep Passion For
-                                    Coding, Cybersecurity, Teaching, And The Quran. Born And Raised In Karachi,
-                                    Pakistan, My
-                                    Journey Began Not In
-                                    Code—But With The Holy Quran.</span>
-                                <span class="line third" style="font-size: 30px;">By The Age Of 12, I Had Memorized The
-                                    Quran,
-                                    Developing Strong Discipline,
-                                    Focus, And
-                                    Mental
-                                    Clarity. Later, This
-                                    Foundation Evolved Into A Desire To Solve Complex Problems Using Technology. That’s
-                                    When
-                                    I
-                                    Discovered Programming..</span>
-                                <span class="line fourth" style="font-size: 30px;">Currently, I’m Pursuing A Diploma In Software Engineering At Aptech, While
-                                    Simultaneously
-                                    Contributing To Real-World
-                                    Projects, Teaching Short Courses, And Continuously Improving My Skillset. I Firmly
-                                    Believe In
-                                    The Power Of Tech To
-                                    Change Lives—And I’m On A Mission To Become A World-Class Ethical Hacker And
-                                    Software
-                                    Engineer.</span>
-                            </p>
-                        </div>
-                    </div>
+        <!-- Canvas for realistic fireworks -->
+        <canvas id="fireworks-canvas"></canvas>
+
+        <!-- Plane with Banner - Hidden at start -->
+        <div class="plane-container">
+            <div class="plane">
+                <div class="plane-body">
+                    <div class="plane-window"></div>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="plane-wing"></div>
+                <div class="plane-tail"></div>
+                <div class="banner">Happy Teacher's Day!</div>
             </div>
         </div>
-    </section>
 
+        <!-- Message Container with Swipe -->
+        <div class="message-container">
+            <div class="swipe-container" id="swipeContainer">
+                <!-- Paragraph 1 -->
+                <div class="paragraph active" id="para1">
+                    <div class="main-message">Happy Teacher's Day!</div>
+                    <div class="sub-message">
+                        Dear <span class="highlight">Respected Teacher</span>,<br><br>
+                        Your dedication, patience, and passion for teaching have made a profound impact on my life.
+                        You've not only shared knowledge but also inspired curiosity and a love for learning.
+                    </div>
+                </div>
 
+                <!-- Paragraph 2 -->
+                <div class="paragraph" id="para2">
+                    <div class="main-message">You Inspire Us</div>
+                    <div class="sub-message">
+                        You saw potential in me when I couldn't see it in myself. Your belief gave me confidence,
+                        your guidance gave me direction, and your encouragement gave me wings to fly.
+                    </div>
+                </div>
+
+                <!-- Paragraph 3 -->
+                <div class="paragraph" id="para3">
+                    <div class="main-message">Beyond the Classroom</div>
+                    <div class="sub-message">
+                        The lessons you taught extended far beyond textbooks. You taught us about resilience,
+                        integrity, and the importance of never giving up on our dreams.
+                    </div>
+                </div>
+
+                <!-- Paragraph 4 -->
+                <div class="paragraph" id="para4">
+                    <div class="main-message">Lasting Impact</div>
+                    <div class="sub-message">
+                        Years may pass, but the impact of your teaching remains. The values you instilled and
+                        the knowledge you shared continue to guide me in every aspect of life.
+                    </div>
+                </div>
+
+                <!-- Paragraph 5 -->
+                <div class="paragraph" id="para5">
+                    <div class="main-message">With Gratitude</div>
+                    <div class="sub-message">
+                        Thank you for being more than just a teacher - for being a mentor, a guide, and an
+                        inspiration.<br><br>
+                        With deepest gratitude,<br>
+                        Your Student <br>
+                        H M Abdullah
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Dots -->
+            <div class="progress-dots" id="progressDots">
+                <div class="dot active" data-index="0"></div>
+                <div class="dot" data-index="1"></div>
+                <div class="dot" data-index="2"></div>
+                <div class="dot" data-index="3"></div>
+                <div class="dot" data-index="4"></div>
+            </div>
+
+            <!-- Swipe Instructions -->
+            <div class="swipe-instruction">
+                <span class="swipe-arrow">←</span>
+                Swipe to continue reading
+                <span class="swipe-arrow">→</span>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const loader = document.getElementById("loader");
-        const spline = document.querySelector("spline-viewer");
-        const splineWrapper = document.getElementById("splineWrapper");
+        // Create white star dots in background
+        function createStarDots() {
+            const starsContainer = document.getElementById('stars-background');
+            for (let i = 0; i < 300; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star-dot');
 
-        spline.addEventListener("load", () => {
-            loader.style.display = "none";
+                const size = Math.random() * 2 + 1; // Small white dots
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Realistic Fireworks with Physics
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Firework particles
+        const particles = [];
+        const rockets = [];
+
+        // Colors for fireworks
+        const colors = [
+            '#FF416C', '#FF4B2B', '#38ef7d', '#11998e',
+            '#ff00cc', '#ff8a00', '#4facfe', '#00f2fe',
+            '#f857a6', '#ff5858', '#7b4397', '#dc2430',
+            '#FFD700', '#FF69B4', '#00FF00', '#00FFFF'
+        ];
+
+        // Particle class
+        class Particle {
+            constructor(x, y, color, velocity, size = 2, decay = 0.015) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = velocity;
+                this.alpha = 1;
+                this.size = size;
+                this.decay = decay;
+                this.gravity = 0.01;
+                this.friction = 0.99;
+            }
+
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.velocity.y += this.gravity;
+
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                this.alpha -= this.decay;
+
+                return this.alpha > 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Rocket class
+        class Rocket {
+            constructor(x, targetY, color) {
+                this.x = x;
+                this.y = canvas.height;
+                this.targetY = targetY;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 2,
+                    y: - (8 + Math.random() * 4)
+                };
+                this.trail = [];
+                this.exploded = false;
+            }
+
+            update() {
+                this.velocity.y *= 0.99;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Add trail particles
+                if (Math.random() < 0.3) {
+                    this.trail.push(new Particle(
+                        this.x,
+                        this.y,
+                        this.color,
+                        { x: (Math.random() - 0.5) * 0.5, y: Math.random() * 1 },
+                        1.5,
+                        0.03
+                    ));
+                }
+
+                // Update trail
+                this.trail = this.trail.filter(particle => particle.update());
+
+                // Check if rocket should explode
+                if (this.y <= this.targetY && !this.exploded) {
+                    this.explode();
+                    this.exploded = true;
+                }
+
+                return !this.exploded || this.trail.length > 0;
+            }
+
+            explode() {
+                const particleCount = 80 + Math.floor(Math.random() * 50);
+                const power = 3 + Math.random() * 2;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.cos(Math.random() * Math.PI) * power;
+
+                    particles.push(new Particle(
+                        this.x,
+                        this.y,
+                        this.color,
+                        {
+                            x: Math.cos(angle) * speed,
+                            y: Math.sin(angle) * speed
+                        },
+                        Math.random() * 2 + 1,
+                        0.01
+                    ));
+                }
+
+                // Add secondary explosion for more realism
+                setTimeout(() => {
+                    for (let i = 0; i < 30; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.cos(Math.random() * Math.PI) * (power * 0.7);
+
+                        particles.push(new Particle(
+                            this.x,
+                            this.y,
+                            colors[Math.floor(Math.random() * colors.length)],
+                            {
+                                x: Math.cos(angle) * speed,
+                                y: Math.sin(angle) * speed
+                            },
+                            Math.random() * 1.5 + 0.5,
+                            0.02
+                        ));
+                    }
+                }, 100 + Math.random() * 100);
+            }
+
+            draw() {
+                // Draw trail
+                this.trail.forEach(particle => particle.draw());
+
+                // Draw rocket
+                if (!this.exploded) {
+                    ctx.save();
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+        }
+
+        // Create random fireworks - NEVER ENDING
+        function createRandomFirework() {
+            const x = Math.random() * canvas.width;
+            const targetY = 50 + Math.random() * (canvas.height / 2);
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            rockets.push(new Rocket(x, targetY, color));
+        }
+
+        // Animation loop - NEVER STOPS
+        function animate() {
+            // Clear canvas with fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw rockets
+            for (let i = rockets.length - 1; i >= 0; i--) {
+                if (!rockets[i].update()) {
+                    rockets.splice(i, 1);
+                } else {
+                    rockets[i].draw();
+                }
+            }
+
+            // Update and draw particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                if (!particles[i].update()) {
+                    particles.splice(i, 1);
+                } else {
+                    particles[i].draw();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Swipe functionality for paragraphs
+        let currentParagraph = 0;
+        const totalParagraphs = 5;
+        let startX = 0;
+        let endX = 0;
+
+        function updateParagraphs() {
+            // Update all paragraphs
+            document.querySelectorAll('.paragraph').forEach((para, index) => {
+                para.classList.remove('active', 'prev', 'next');
+                if (index === currentParagraph) {
+                    para.classList.add('active');
+                } else if (index < currentParagraph) {
+                    para.classList.add('prev');
+                } else {
+                    para.classList.add('next');
+                }
+            });
+
+            // Update progress dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentParagraph);
+            });
+        }
+
+        function handleSwipe(direction) {
+            if (direction === 'left' && currentParagraph < totalParagraphs - 1) {
+                currentParagraph++;
+            } else if (direction === 'right' && currentParagraph > 0) {
+                currentParagraph--;
+            }
+            updateParagraphs();
+        }
+
+        // Touch events for mobile
+        document.getElementById('swipeContainer').addEventListener('touchstart', (e) => {
+            startX = e.changedTouches[0].screenX;
         });
 
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 3000);
+        document.getElementById('swipeContainer').addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].screenX;
+            const diffX = endX - startX;
 
-        let state = 0; // 0=center, 1=animated, 2=unlocked
-
-        window.addEventListener("wheel", (e) => {
-            // --- SCROLL DOWN ---
-            if (e.deltaY > 0) {
-                if (state === 0) {
-                    // play animation
-                    splineWrapper.classList.add("animate");
-                    state = 1;
-                    e.preventDefault();
-                } else if (state === 1) {
-                    // unlock page -> allow next section
-                    state = 2;
-                    // do not preventDefault here so scroll continues
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    handleSwipe('right');
+                } else {
+                    handleSwipe('left');
                 }
             }
+        });
 
-            // --- SCROLL UP ---
-            else if (e.deltaY < 0) {
-                if (state === 2 && window.scrollY <= 0) {
-                    // coming back from 2nd section into hero
-                    // lock again in animated state
-                    state = 1;
-                    e.preventDefault();
-                } else if (state === 1) {
-                    // reverse animation back to center
-                    splineWrapper.classList.remove("animate");
-                    state = 0;
-                    e.preventDefault();
+        // Mouse events for desktop
+        document.getElementById('swipeContainer').addEventListener('mousedown', (e) => {
+            startX = e.screenX;
+        });
+
+        document.getElementById('swipeContainer').addEventListener('mouseup', (e) => {
+            endX = e.screenX;
+            const diffX = endX - startX;
+
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    handleSwipe('right');
+                } else {
+                    handleSwipe('left');
                 }
             }
-        }, { passive: false });
+        });
 
+        // Keyboard navigation for accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                handleSwipe('left');
+            } else if (e.key === 'ArrowLeft') {
+                handleSwipe('right');
+            }
+        });
+
+        // Initialize
+        function init() {
+            createStarDots();
+            animate();
+
+            // Create initial fireworks
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createRandomFirework();
+                }, i * 800);
+            }
+
+            // NEVER ENDING FIREWORKS - Continuous creation FOREVER
+            setInterval(() => {
+                createRandomFirework();
+            }, 600); // Create new fireworks every 600ms FOREVER
+
+            // Make plane visible when animation starts (at 10 seconds)
+            setTimeout(() => {
+                document.querySelector('.plane-container').style.opacity = '1';
+            }, 10000);
+
+            // Initialize paragraphs
+            updateParagraphs();
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Start the show
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 
