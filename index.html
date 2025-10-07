@@ -32,6 +32,7 @@
             overflow-x: hidden;
             line-height: 1.6;
             scroll-behavior: smooth;
+            touch-action: manipulation;
         }
 
         h1, h2, h3 {
@@ -378,11 +379,13 @@
             margin: 2rem auto;
             border: 2px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            touch-action: none;
         }
 
         #gameCanvas {
             width: 100%;
             height: 100%;
+            display: block;
         }
 
         .game-info {
@@ -398,6 +401,39 @@
             align-items: center;
             justify-content: center;
             color: var(--primary-color);
+        }
+
+        /* Mobile Controls */
+        .mobile-controls {
+            display: none;
+            width: 100%;
+            max-width: 300px;
+            margin: 1rem auto;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .mobile-btn {
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-btn:active {
+            background: rgba(212, 175, 55, 0.4);
+            transform: scale(0.95);
         }
 
         /* Quiz Section */
@@ -520,6 +556,7 @@
             text-align: left;
             position: relative;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .chat-option::before {
@@ -744,6 +781,14 @@
             #letters, .quiz-container, .diamond-theory {
                 padding: 2rem;
             }
+
+            .mobile-controls {
+                display: flex;
+            }
+
+            .game-container {
+                height: 350px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -765,6 +810,16 @@
             
             .section-title {
                 font-size: 2.2rem;
+            }
+
+            .game-container {
+                height: 300px;
+            }
+
+            .mobile-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -874,10 +929,20 @@
     <section id="game" class="section">
         <div class="game-overlay"></div>
         <h2 class="section-title">Catch the Gem</h2>
-        <p style="margin-bottom: 2rem; font-size: 1.2rem;">Use arrow keys to catch the falling gems</p>
+        <p style="margin-bottom: 2rem; font-size: 1.2rem;">Use arrow keys or touch controls to catch the falling gems</p>
         
         <div class="game-container">
             <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="mobile-controls">
+            <div class="mobile-btn" id="leftBtn">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="mobile-btn" id="rightBtn">
+                <i class="fas fa-arrow-right"></i>
+            </div>
         </div>
         
         <div class="game-info">
@@ -1230,6 +1295,8 @@
         const ctx = canvas.getContext('2d');
         const gemCountElement = document.getElementById('gemCount');
         const gameMessage = document.getElementById('gameMessage');
+        const leftBtn = document.getElementById('leftBtn');
+        const rightBtn = document.getElementById('rightBtn');
         
         // Set canvas dimensions
         canvas.width = canvas.offsetWidth;
@@ -1243,6 +1310,8 @@
         let score = 0;
         let gameActive = false;
         let gameLoopId;
+        let leftPressed = false;
+        let rightPressed = false;
         
         // Gem class
         class Gem {
@@ -1383,6 +1452,14 @@
                 return gem.update();
             });
             
+            // Move basket based on key states
+            if (leftPressed && basketX > 10) {
+                basketX -= 8;
+            }
+            if (rightPressed && basketX < canvas.width - basketWidth - 10) {
+                basketX += 8;
+            }
+            
             // Continue game loop
             if (gameActive) {
                 gameLoopId = requestAnimationFrame(gameLoop);
@@ -1396,11 +1473,81 @@
                 gameLoop();
             }
             
-            if (e.key === 'ArrowLeft' && basketX > 10) {
-                basketX -= 20;
-            } else if (e.key === 'ArrowRight' && basketX < canvas.width - basketWidth - 10) {
-                basketX += 20;
+            if (e.key === 'ArrowLeft') {
+                leftPressed = true;
+            } else if (e.key === 'ArrowRight') {
+                rightPressed = true;
             }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft') {
+                leftPressed = false;
+            } else if (e.key === 'ArrowRight') {
+                rightPressed = false;
+            }
+        });
+
+        // Mobile touch controls
+        leftBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            leftPressed = true;
+            if (!gameActive) {
+                gameActive = true;
+                gameLoop();
+            }
+        });
+
+        leftBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            leftPressed = false;
+        });
+
+        rightBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            rightPressed = true;
+            if (!gameActive) {
+                gameActive = true;
+                gameLoop();
+            }
+        });
+
+        rightBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            rightPressed = false;
+        });
+
+        // Mouse controls for desktop testing
+        leftBtn.addEventListener('mousedown', () => {
+            leftPressed = true;
+            if (!gameActive) {
+                gameActive = true;
+                gameLoop();
+            }
+        });
+
+        leftBtn.addEventListener('mouseup', () => {
+            leftPressed = false;
+        });
+
+        leftBtn.addEventListener('mouseleave', () => {
+            leftPressed = false;
+        });
+
+        rightBtn.addEventListener('mousedown', () => {
+            rightPressed = true;
+            if (!gameActive) {
+                gameActive = true;
+                gameLoop();
+            }
+        });
+
+        rightBtn.addEventListener('mouseup', () => {
+            rightPressed = false;
+        });
+
+        rightBtn.addEventListener('mouseleave', () => {
+            rightPressed = false;
         });
 
         // Quiz functionality
