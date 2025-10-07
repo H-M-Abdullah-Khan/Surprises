@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Teacher's Day</title>
+    <title>For My Beautiful Wife 💕</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
@@ -56,7 +56,7 @@
         .start-title {
             font-size: 3rem;
             margin-bottom: 20px;
-            background: linear-gradient(to right, #ff8a00, #ff4081, #ff8a00);
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e, #ff6b6b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -64,7 +64,7 @@
         }
 
         .start-btn {
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
             padding: 15px 40px;
@@ -73,13 +73,13 @@
             cursor: pointer;
             margin-top: 30px;
             font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.4);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
             transition: all 0.3s ease;
         }
 
         .start-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
         }
 
         .audio-note {
@@ -157,7 +157,6 @@
             animation-delay: 10s;
             transform: scale(1.5);
             opacity: 0;
-            /* Hidden at start */
         }
 
         .plane {
@@ -215,7 +214,7 @@
             position: absolute;
             top: -50px;
             left: 60px;
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             color: white;
             padding: 12px 25px;
             border-radius: 25px;
@@ -228,7 +227,7 @@
             z-index: 25;
         }
 
-        /* Message Container with Swipe */
+        /* Message Container with Infinite Swipe */
         .message-container {
             position: absolute;
             width: 100%;
@@ -277,11 +276,11 @@
         }
 
         .main-message {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: bold;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-            background: linear-gradient(to right, #ff8a00, #ff4081, #ff8a00);
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e, #ff6b6b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -290,20 +289,26 @@
         }
 
         .sub-message {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             max-width: 90%;
             margin: 0 auto;
             line-height: 1.6;
             background: rgba(0, 0, 0, 0.7);
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .highlight {
-            color: #FFD700;
+            color: #ff6b6b;
             font-weight: bold;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
         }
 
         /* Swipe Instructions */
@@ -331,29 +336,19 @@
             animation: bounce 2s infinite;
         }
 
-        /* Progress Dots */
-        .progress-dots {
+        /* Progress Indicator */
+        .progress-indicator {
             position: absolute;
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            border-radius: 15px;
             z-index: 35;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #FFD700;
-            transform: scale(1.2);
-            box-shadow: 0 0 10px #FFD700;
         }
 
         /* Stars Background */
@@ -379,7 +374,6 @@
                 left: -300px;
                 transform: scale(1.5) translateY(0);
                 opacity: 1;
-                /* Becomes visible when animation starts */
             }
 
             25% {
@@ -413,11 +407,11 @@
 
         @keyframes glow {
             0% {
-                text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+                text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
             }
 
             100% {
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.6);
+                text-shadow: 0 0 20px rgba(255, 107, 107, 0.9), 0 0 30px rgba(255, 107, 107, 0.6);
             }
         }
 
@@ -452,15 +446,27 @@
             }
         }
 
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-message {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
 
             .sub-message {
-                font-size: 1.2rem;
-                padding: 20px;
+                font-size: 1.1rem;
+                padding: 15px;
             }
 
             .plane-container {
@@ -490,12 +496,12 @@
 
         @media (max-width: 480px) {
             .main-message {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
 
             .sub-message {
                 font-size: 1rem;
-                padding: 15px;
+                padding: 12px;
             }
 
             .audio-controls {
@@ -518,12 +524,12 @@
     <!-- Start Screen -->
     <div class="start-screen" id="startScreen">
         <div class="start-content">
-            <h1 class="start-title">Happy Teacher's Day! 🎉</h1>
+            <h1 class="start-title">For My Beautiful Wife 💕</h1>
             <p style="font-size: 1.2rem; margin-bottom: 20px; color: rgba(255,255,255,0.8);">
-                A special celebration for an amazing teacher
+                Endless love messages just for you
             </p>
             <button class="start-btn" id="startBtn">
-                Start Celebration 🎊
+                Start Our Celebration 💖
             </button>
             <p class="audio-note">
             </p>
@@ -551,76 +557,119 @@
                 </div>
                 <div class="plane-wing"></div>
                 <div class="plane-tail"></div>
-                <div class="banner">Happy Teacher's Day!</div>
+                <div class="banner">I Love You! 💖</div>
             </div>
         </div>
 
-        <!-- Message Container with Swipe -->
+        <!-- Message Container with Infinite Swipe -->
         <div class="message-container">
             <div class="swipe-container" id="swipeContainer">
                 <!-- Paragraph 1 -->
                 <div class="paragraph active" id="para1">
-                    <div class="main-message">Happy Teacher's Day!</div>
+                    <div class="main-message">My Dearest Love 💕</div>
                     <div class="sub-message">
-                        Dear <span class="highlight">Respected Teacher</span>,<br><br>
-                        Your dedication, patience, and passion for teaching have made a profound impact on my life.
-                        You've not only shared knowledge but also inspired curiosity and a love for learning.
+                        To my <span class="highlight">beautiful Marimum</span>,<br><br>
+                        Every moment with you feels like a beautiful dream. Your smile lights up my world,
+                        and your love completes me in ways I never thought possible.
                     </div>
                 </div>
 
                 <!-- Paragraph 2 -->
                 <div class="paragraph" id="para2">
-                    <div class="main-message">You Inspire Us</div>
+                    <div class="main-message">You Complete Me</div>
                     <div class="sub-message">
-                        You saw potential in me when I couldn't see it in myself. Your belief gave me confidence,
-                        your guidance gave me direction, and your encouragement gave me wings to fly.
+                        You saw the real me when I was hiding behind walls. Your love gave me courage,
+                        your presence gave me peace, and your belief in me gave me wings to fly higher than ever before.
                     </div>
                 </div>
 
                 <!-- Paragraph 3 -->
                 <div class="paragraph" id="para3">
-                    <div class="main-message">Beyond the Classroom</div>
+                    <div class="main-message">My Best Friend</div>
                     <div class="sub-message">
-                        The lessons you taught extended far beyond textbooks. You taught us about resilience,
-                        integrity, and the importance of never giving up on our dreams.
+                        You're not just my girlfriend - you're my best friend, my confidant, my greatest adventure, and
+                        my wife
+                        With you, every day is Special Day, and every moment is precious.
                     </div>
                 </div>
 
                 <!-- Paragraph 4 -->
                 <div class="paragraph" id="para4">
-                    <div class="main-message">Lasting Impact</div>
+                    <div class="main-message">Forever Yours</div>
                     <div class="sub-message">
-                        Years may pass, but the impact of your teaching remains. The values you instilled and
-                        the knowledge you shared continue to guide me in every aspect of life.
+                        No matter where life takes us, my heart will always belong to you. The memories we've created
+                        and the love we share are the most beautiful chapters of my life story.
                     </div>
                 </div>
 
                 <!-- Paragraph 5 -->
                 <div class="paragraph" id="para5">
-                    <div class="main-message">With Gratitude</div>
+                    <div class="main-message">Your Beautiful Smile</div>
                     <div class="sub-message">
-                        Thank you for being more than just a teacher - for being a mentor, a guide, and an
-                        inspiration.<br><br>
-                        With deepest gratitude,<br>
-                        Your Student <br>
-                        H M Abdullah
+                        Your smile is my favorite sight in the world. It has the power to brighten my darkest days
+                        and make everything feel right. I fall in love with you all over again every time you smile.
+                    </div>
+                </div>
+
+                <!-- Paragraph 6 -->
+                <div class="paragraph" id="para6">
+                    <div class="main-message">My Safe Place</div>
+                    <div class="sub-message">
+                        In your arms, I've found my home. Your embrace is my sanctuary, your voice is my comfort,
+                        and your love is the anchor that keeps me grounded in this chaotic world.
+                    </div>
+                </div>
+
+                <!-- Paragraph 7 -->
+                <div class="paragraph" id="para7">
+                    <div class="main-message">Growing Together</div>
+                    <div class="sub-message">
+                        I love watching us grow together - learning, evolving, and becoming better versions of
+                        ourselves.
+                        With you by my side, I know we can conquer anything life throws our way.
+                    </div>
+                </div>
+
+                <!-- Paragraph 8 -->
+                <div class="paragraph" id="para8">
+                    <div class="main-message">Little Things</div>
+                    <div class="sub-message">
+                        It's not just the big moments, but the little things too - your morning texts, your laugh,
+                        the way your eyes sparkle when you're excited. These are the moments I treasure most.
+                    </div>
+                </div>
+
+                <!-- Paragraph 9 -->
+                <div class="paragraph" id="para9">
+                    <div class="main-message">My Inspiration</div>
+                    <div class="sub-message">
+                        You inspire me to be a better person every single day. Your strength, kindness, and compassion
+                        motivate me to reach for the stars and never settle for anything less than extraordinary.
+                    </div>
+                </div>
+
+                <!-- Paragraph 10 -->
+                <div class="paragraph" id="para10">
+                    <div class="main-message">With All My Love</div>
+                    <div class="sub-message">
+                        Thank you for being you - for your kindness, your laughter, and the incredible love you give me
+                        every day.<br><br>
+                        Forever and always,<br>
+                        Your <span class="heart">💖</span> Husband <br>
+                        Abdullah
                     </div>
                 </div>
             </div>
 
-            <!-- Progress Dots -->
-            <div class="progress-dots" id="progressDots">
-                <div class="dot active" data-index="0"></div>
-                <div class="dot" data-index="1"></div>
-                <div class="dot" data-index="2"></div>
-                <div class="dot" data-index="3"></div>
-                <div class="dot" data-index="4"></div>
+            <!-- Progress Indicator -->
+            <div class="progress-indicator" id="progressIndicator">
+                Message <span id="currentMessage">1</span> of <span id="totalMessages">10</span>
             </div>
 
             <!-- Swipe Instructions -->
             <div class="swipe-instruction">
                 <span class="swipe-arrow">←</span>
-                Swipe to continue reading
+                Swipe to read more love messages
                 <span class="swipe-arrow">→</span>
             </div>
         </div>
@@ -783,12 +832,12 @@
         const particles = [];
         const rockets = [];
 
-        // Colors for fireworks
+        // Romantic colors for fireworks
         const colors = [
-            '#FF416C', '#FF4B2B', '#38ef7d', '#11998e',
-            '#ff00cc', '#ff8a00', '#4facfe', '#00f2fe',
-            '#f857a6', '#ff5858', '#7b4397', '#dc2430',
-            '#FFD700', '#FF69B4', '#00FF00', '#00FFFF'
+            '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff5252',
+            '#e91e63', '#f48fb1', '#f06292', '#ec407a',
+            '#ff4081', '#f50057', '#c2185b', '#ad1457',
+            '#ff80ab', '#ff4081', '#f50057', '#c51162'
         ];
 
         // Particle class
@@ -970,9 +1019,9 @@
             requestAnimationFrame(animate);
         }
 
-        // Swipe functionality for paragraphs
+        // Infinite Swipe functionality
         let currentParagraph = 0;
-        const totalParagraphs = 5;
+        const totalParagraphs = 10; // Now we have 10 paragraphs
         let startX = 0;
         let endX = 0;
 
@@ -989,17 +1038,18 @@
                 }
             });
 
-            // Update progress dots
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentParagraph);
-            });
+            // Update progress indicator
+            document.getElementById('currentMessage').textContent = currentParagraph + 1;
+            document.getElementById('totalMessages').textContent = totalParagraphs;
         }
 
         function handleSwipe(direction) {
-            if (direction === 'left' && currentParagraph < totalParagraphs - 1) {
-                currentParagraph++;
-            } else if (direction === 'right' && currentParagraph > 0) {
-                currentParagraph--;
+            if (direction === 'left') {
+                // Infinite loop forward
+                currentParagraph = (currentParagraph + 1) % totalParagraphs;
+            } else if (direction === 'right') {
+                // Infinite loop backward
+                currentParagraph = (currentParagraph - 1 + totalParagraphs) % totalParagraphs;
             }
             updateParagraphs();
         }
@@ -1042,7 +1092,7 @@
 
         // Keyboard navigation for accessibility
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
                 handleSwipe('left');
             } else if (e.key === 'ArrowLeft') {
                 handleSwipe('right');
