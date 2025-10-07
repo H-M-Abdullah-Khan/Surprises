@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Beautiful Wife 💕</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet">
+    <title>Red Diamond Experience - Alizay's Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         * {
             margin: 0;
@@ -15,1131 +14,1320 @@
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #000;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            height: 100vh;
-            width: 100vw;
-            touch-action: pan-y;
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #c19e6d;
+            --accent-color: #b76e79;
+            --text-color: #f0f0f0;
+            --light-bg: #0a0a0a;
+            --dark-bg: #000000;
+            --card-bg: #1a1a1a;
+            --gradient: linear-gradient(135deg, #d4af37, #b76e79, #8a2be2);
         }
 
-        .scene {
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 2rem;
             position: relative;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Intro Section */
+        #intro {
+            text-align: center;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+            position: relative;
             overflow: hidden;
         }
 
-        /* Start Screen */
-        .start-screen {
+        .intro-overlay {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .glowing-text {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+            font-weight: 300;
+            max-width: 600px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Realistic Diamond */
+        .diamond-container {
+            margin: 2rem 0;
+            perspective: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .diamond {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 15s infinite linear;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
+        }
+
+        .diamond-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.9;
+        }
+
+        .diamond-face:nth-child(1) { transform: rotateY(0deg) translateZ(100px); }
+        .diamond-face:nth-child(2) { transform: rotateY(90deg) translateZ(100px); }
+        .diamond-face:nth-child(3) { transform: rotateY(180deg) translateZ(100px); }
+        .diamond-face:nth-child(4) { transform: rotateY(270deg) translateZ(100px); }
+        .diamond-face:nth-child(5) { transform: rotateX(90deg) translateZ(100px); }
+        .diamond-face:nth-child(6) { transform: rotateX(-90deg) translateZ(100px); }
+
+        .diamond-reflection {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.8);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            filter: blur(5px);
+            animation: reflection 3s ease-in-out infinite alternate;
+        }
+
+        .begin-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .begin-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .begin-btn:hover::before {
+            left: 100%;
+        }
+
+        .begin-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Letters Section */
+        #letters {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        .letter {
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            z-index: 0;
+        }
+
+        .letter.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-icon {
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .letter h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .letter-content {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote {
+            font-style: italic;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 3px solid var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .note-btn {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-color);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .note-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .note-btn:hover::before {
+            left: 100%;
+        }
+
+        .note-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .continue-btn {
+            background: var(--gradient);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            display: none;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Quiz Section */
+        #quiz {
+            text-align: center;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+            position: relative;
+        }
+
+        .quiz-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(183, 110, 121, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gradient);
+            border-radius: 10px;
+            width: 10%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: right;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .chat-question {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-question::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            z-index: 0;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .question-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(51, 51, 51, 0.5);
+            color: var(--text-color);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .chat-option:hover::before {
+            left: 100%;
+        }
+
+        .chat-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Final Section */
+        #final {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+            position: relative;
+        }
+
+        .final-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .diamond-theory {
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .diamond-theory::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            animation: shimmer 6s infinite linear;
+        }
+
+        .attributes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .attributes-table th {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .attributes-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+            text-align: left;
+            color: var(--text-color);
+        }
+
+        .attributes-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .final-message {
+            font-size: 1.3rem;
+            margin: 2rem 0;
+            line-height: 1.8;
+            color: var(--text-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .secret-diamond {
+            margin-top: 3rem;
+            cursor: pointer;
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-bg);
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
-        .start-content {
-            text-align: center;
-            max-width: 90%;
-        }
-
-        .start-title {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e, #ff6b6b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-family: 'Dancing Script', cursive;
-        }
-
-        .start-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 30px;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-        }
-
-        .audio-note {
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        /* Canvas for realistic fireworks */
-        #fireworks-canvas {
+        .modal-content {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-        }
-
-        /* Audio Controls */
-        .audio-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 40;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 15px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 1s;
-        }
-
-        .sound-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .sound-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
-        }
-
-        .volume-slider {
-            width: 80px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-            outline: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .audio-controls:hover .volume-slider {
-            opacity: 1;
-        }
-
-        /* Plane - Hidden at start */
-        .plane-container {
-            position: absolute;
-            top: 40%;
-            left: -300px;
-            z-index: 20;
-            animation: flyIn 8s forwards;
-            animation-delay: 10s;
-            transform: scale(1.5);
-            opacity: 0;
-        }
-
-        .plane {
-            position: relative;
-            width: 200px;
-            height: 60px;
-        }
-
-        .plane-body {
-            width: 140px;
-            height: 30px;
-            background: #f8f8f8;
-            border-radius: 15px 5px 5px 15px;
-            position: relative;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .plane-wing {
-            position: absolute;
-            width: 80px;
-            height: 15px;
-            background: #e0e0e0;
-            top: -10px;
-            left: 30px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        .plane-tail {
-            position: absolute;
-            width: 30px;
-            height: 15px;
-            background: #e0e0e0;
-            top: 8px;
-            right: 0;
-            border-radius: 5px 0 0 5px;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        .plane-window {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #87CEEB;
-            border-radius: 50%;
-            top: 10px;
-            left: 20px;
-            box-shadow:
-                25px 0 0 #87CEEB,
-                50px 0 0 #87CEEB,
-                75px 0 0 #87CEEB;
-        }
-
-        .banner {
-            position: absolute;
-            top: -50px;
-            left: 60px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            white-space: nowrap;
-            transform: rotate(-5deg);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            font-family: 'Dancing Script', cursive;
-            z-index: 25;
-        }
-
-        /* Message Container with Infinite Swipe */
-        .message-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 30;
-            opacity: 0;
-            animation: fadeIn 3s forwards;
-            animation-delay: 15s;
-            overflow: hidden;
-        }
-
-        .swipe-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .paragraph {
-            position: absolute;
-            width: 90%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            pointer-events: none;
-        }
-
-        .paragraph.active {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: auto;
-        }
-
-        .paragraph.next {
-            opacity: 0;
-            transform: translate(-50%, -50%) translateX(100px) scale(0.9);
-        }
-
-        .paragraph.prev {
-            opacity: 0;
-            transform: translate(-50%, -50%) translateX(-100px) scale(0.9);
-        }
-
-        .main-message {
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e, #ff6b6b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: glow 2s infinite alternate;
-            font-family: 'Dancing Script', cursive;
-        }
-
-        .sub-message {
-            font-size: 1.3rem;
-            max-width: 90%;
-            margin: 0 auto;
-            line-height: 1.6;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .highlight {
-            color: #ff6b6b;
-            font-weight: bold;
-        }
-
-        .heart {
-            color: #ff6b6b;
-            animation: heartbeat 1.5s infinite;
-            display: inline-block;
-        }
-
-        /* Swipe Instructions */
-        .swipe-instruction {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            max-width: 500px;
+            width: 90%;
             text-align: center;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 20px;
-            z-index: 35;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-            animation-delay: 16s;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            color: var(--text-color);
         }
 
-        .swipe-arrow {
-            display: inline-block;
-            margin: 0 10px;
-            font-size: 1.2rem;
-            animation: bounce 2s infinite;
-        }
-
-        /* Progress Indicator */
-        .progress-indicator {
+        .close-modal {
             position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 15px;
-            border-radius: 15px;
-            z-index: 35;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary-color);
         }
 
-        /* Stars Background */
-        .stars-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .star-dot {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
+        .modal-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            font-style: italic;
         }
 
         /* Animations */
-        @keyframes flyIn {
-            0% {
-                left: -300px;
-                transform: scale(1.5) translateY(0);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.5) translateY(-20px);
-            }
-
-            50% {
-                transform: scale(1.5) translateY(10px);
-            }
-
-            75% {
-                transform: scale(1.5) translateY(-15px);
-            }
-
-            100% {
-                left: 120%;
-                transform: scale(1.5) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
         @keyframes glow {
-            0% {
-                text-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
-            }
-
-            100% {
-                text-shadow: 0 0 20px rgba(255, 107, 107, 0.9), 0 0 30px rgba(255, 107, 107, 0.6);
-            }
+            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 30px rgba(212, 175, 55, 0.6); }
         }
 
-        @keyframes twinkle {
-
-            0%,
-            100% {
-                opacity: 0.3;
-            }
-
-            50% {
-                opacity: 1;
-            }
+        @keyframes rotate {
+            0% { transform: rotateY(0deg) rotateX(10deg); }
+            100% { transform: rotateY(360deg) rotateX(10deg); }
         }
 
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateX(0);
-            }
-
-            40% {
-                transform: translateX(-5px);
-            }
-
-            60% {
-                transform: translateX(5px);
-            }
+        @keyframes reflection {
+            0% { opacity: 0.3; transform: translate(-10px, -10px); }
+            100% { opacity: 0.7; transform: translate(10px, 10px); }
         }
 
-        @keyframes heartbeat {
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
 
-            0%,
-            100% {
-                transform: scale(1);
-            }
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-            50% {
-                transform: scale(1.1);
-            }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .main-message {
+            .glowing-text {
                 font-size: 2.5rem;
             }
-
-            .sub-message {
-                font-size: 1.1rem;
-                padding: 15px;
+            
+            .diamond {
+                width: 150px;
+                height: 150px;
             }
-
-            .plane-container {
-                transform: scale(1.2);
+            
+            .letter {
+                padding: 2rem;
             }
-
-            .banner {
-                font-size: 1.1rem;
-                padding: 10px 20px;
-            }
-
-            .swipe-instruction {
+            
+            .attributes-table {
                 font-size: 0.9rem;
-                bottom: 20px;
             }
-
-            .audio-controls {
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
-            }
-
-            .start-title {
-                font-size: 2.5rem;
+            
+            #letters, .quiz-container, .diamond-theory {
+                padding: 2rem;
             }
         }
 
         @media (max-width: 480px) {
-            .main-message {
+            .glowing-text {
                 font-size: 2rem;
             }
-
-            .sub-message {
-                font-size: 1rem;
-                padding: 12px;
+            
+            .subtitle {
+                font-size: 1.2rem;
             }
-
-            .audio-controls {
-                transform: scale(0.9);
+            
+            .section {
+                padding: 3rem 1rem;
             }
-
-            .start-title {
-                font-size: 2rem;
+            
+            .letter {
+                padding: 1.5rem;
             }
-
-            .start-btn {
-                padding: 12px 30px;
-                font-size: 1.1rem;
+            
+            .section-title {
+                font-size: 2.2rem;
             }
         }
     </style>
 </head>
-
 <body>
-    <!-- Start Screen -->
-    <div class="start-screen" id="startScreen">
-        <div class="start-content">
-            <h1 class="start-title">For My Beautiful Wife 💕</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 20px; color: rgba(255,255,255,0.8);">
-                Endless love messages just for you
-            </p>
-            <button class="start-btn" id="startBtn">
-                Start Our Celebration 💖
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Intro Section -->
+    <section id="intro" class="section">
+        <div class="intro-overlay"></div>
+        <h1 class="glowing-text">✨ Happy Birthday, Alizay 💎</h1>
+        <p class="subtitle">Today, the world celebrates someone who's one in a million.<br>A person with a strong mind, rare energy, and beautiful heart.</p>
+        
+        <div class="diamond-container">
+            <div class="diamond">
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-reflection"></div>
+            </div>
+        </div>
+        
+        <button class="begin-btn" id="beginBtn">
+            <i class="fas fa-gem"></i> Click to Begin the Journey
+        </button>
+    </section>
+
+    <!-- Letters Through Time -->
+    <section id="letters" class="section">
+        <h2 class="section-title">Moments That Define You</h2>
+        
+        <div class="letter" id="letter1">
+            <div class="letter-header">
+                <div class="letter-icon">🩶</div>
+                <h3>The Day I Noticed Your Energy</h3>
+            </div>
+            <div class="letter-content">
+                <p>Confidence + calmness together is a rare combo — and somehow you've got both. The way you handle things, it shows focus and strength.</p>
+            </div>
+            <button class="note-btn" data-note="1">
+                <i class="fas fa-envelope"></i> Hidden Note
             </button>
-            <p class="audio-note">
-            </p>
+        </div>
+        
+        <div class="letter" id="letter2">
+            <div class="letter-header">
+                <div class="letter-icon">💫</div>
+                <h3>The Day I Saw Real Determination</h3>
+            </div>
+            <div class="letter-content">
+                <p>Even when you talk about goals, it's not just words — you mean it. The energy you bring to your work inspires everyone around.</p>
+            </div>
+            <button class="note-btn" data-note="2">
+                <i class="fas fa-envelope"></i> Hidden Note
+            </button>
+        </div>
+        
+        <div class="letter" id="letter3">
+            <div class="letter-header">
+                <div class="letter-icon">💎</div>
+                <h3>The Day I Realized You're Rare</h3>
+            </div>
+            <div class="letter-content">
+                <p>Some people just exist, but some stand out — and you're one of those who make things better by being around.</p>
+            </div>
+            <button class="note-btn" data-note="3">
+                <i class="fas fa-envelope"></i> Hidden Note
+            </button>
+        </div>
+        
+        <div class="letter" id="letter4">
+            <div class="letter-header">
+                <div class="letter-icon">💬</div>
+                <h3>The Day You Inspired Me</h3>
+            </div>
+            <div class="letter-content">
+                <p>The way you balance your personal goals and kindness together — that's something people usually learn late in life.</p>
+            </div>
+            <button class="note-btn" data-note="4">
+                <i class="fas fa-envelope"></i> Hidden Note
+            </button>
+        </div>
+        
+        <div class="letter" id="letter5">
+            <div class="letter-header">
+                <div class="letter-icon">🌟</div>
+                <h3>Today — The Day You Shine Brightest</h3>
+            </div>
+            <div class="letter-content">
+                <p>You've achieved a lot, and there's still more to come. But what makes it special is the way you stay grounded and kind.</p>
+            </div>
+            <button class="note-btn" data-note="5">
+                <i class="fas fa-envelope"></i> Hidden Note
+            </button>
+        </div>
+        
+        <button class="continue-btn" id="continueBtn">
+            Continue to Quiz <i class="fas fa-arrow-right"></i>
+        </button>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="section">
+        <div class="quiz-overlay"></div>
+        <h2 class="section-title">Guess the Chatline</h2>
+        <p class="subtitle">A journey through our most memorable conversations</p>
+        
+        <div class="quiz-container">
+            <div class="progress-text" id="progress">Question 1 of 10</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="chat-question" id="question1">
+                <div class="question-header">
+                    <div class="question-icon">🩶</div>
+                    <h3>Question 1</h3>
+                </div>
+                <div class="quote">"You make me speechless 😭😭"</div>
+                <div class="question-text">What made me say this?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">When you surprised me with your long paragraph</div>
+                    <div class="chat-option" data-correct="false">When you roasted me for the first time</div>
+                    <div class="chat-option" data-correct="true">When you replied unexpectedly deep — I didn't expect that level of honesty</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="chat-question" id="question2" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">💎</div>
+                    <h3>Question 2</h3>
+                </div>
+                <div class="quote">"Tumhara gussa bhi Pathan jaise hai 😫😫😫"</div>
+                <div class="question-text">What was I trying to say?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">You're scary when angry 😭</div>
+                    <div class="chat-option" data-correct="true">You look even stronger when you're mad</div>
+                    <div class="chat-option" data-correct="false">Your anger is unpredictable</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="chat-question" id="question3" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">🩷</div>
+                    <h3>Question 3</h3>
+                </div>
+                <div class="quote">"Mujhy toh tumhare gusse se dar lagne lag gaya hai 🥺"</div>
+                <div class="question-text">What did I mean?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">I was genuinely scared 😅</div>
+                    <div class="chat-option" data-correct="true">I found your confidence intimidating in a good way</div>
+                    <div class="chat-option" data-correct="false">I wanted to avoid conflicts</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="chat-question" id="question4" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">💫</div>
+                    <h3>Question 4</h3>
+                </div>
+                <div class="quote">"Tumhara name maine red diamond save kiya hai 🙃"</div>
+                <div class="question-text">Why "Red Diamond"?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">Because it sounded royal</div>
+                    <div class="chat-option" data-correct="false">Because it matched your vibe</div>
+                    <div class="chat-option" data-correct="true">Because you're rare, valuable, and too real to be copied</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="chat-question" id="question5" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">💻</div>
+                    <h3>Question 5</h3>
+                </div>
+                <div class="quote">"Trust me, aapko shikayat ka moka nahi milay ga."</div>
+                <div class="question-text">What was I promising?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">To never disappoint professionally</div>
+                    <div class="chat-option" data-correct="true">To always keep things transparent</div>
+                    <div class="chat-option" data-correct="false">To always be available</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="chat-question" id="question6" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">🕊️</div>
+                    <h3>Question 6</h3>
+                </div>
+                <div class="quote">"Pagali 😂🤧"</div>
+                <div class="question-text">Why did I say this?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">You confused me with your logic</div>
+                    <div class="chat-option" data-correct="true">You said something unexpectedly funny or cute</div>
+                    <div class="chat-option" data-correct="false">You were being irrational</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="chat-question" id="question7" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">🖤</div>
+                    <h3>Question 7</h3>
+                </div>
+                <div class="quote">"Kash tum meri team member hoti 😔"</div>
+                <div class="question-text">What did I mean?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="true">Because you're skilled and disciplined</div>
+                    <div class="chat-option" data-correct="false">Because you're fun to work with</div>
+                    <div class="chat-option" data-correct="false">Because we get along well</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="chat-question" id="question8" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">💬</div>
+                    <h3>Question 8</h3>
+                </div>
+                <div class="quote">"Mujhy toh aapke liye respect aur badh gayi."</div>
+                <div class="question-text">When did I say this?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">When you took responsibility maturely</div>
+                    <div class="chat-option" data-correct="false">When you handled a situation calmly</div>
+                    <div class="chat-option" data-correct="true">When you proved words aren't needed to show maturity</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="chat-question" id="question9" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">💎</div>
+                    <h3>Question 9</h3>
+                </div>
+                <div class="quote">"Jo banda apne dreams k liye mehnat karta hai, uska respect har kisi ke dil me hota hai."</div>
+                <div class="question-text">What does this remind you of?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="true">When we talked about your goals</div>
+                    <div class="chat-option" data-correct="false">When you mentioned your parents</div>
+                    <div class="chat-option" data-correct="false">When discussing career plans</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="chat-question" id="question10" style="display: none;">
+                <div class="question-header">
+                    <div class="question-icon">🎂</div>
+                    <h3>Question 10</h3>
+                </div>
+                <div class="quote">"Stay focused, stay kind, stay rare."</div>
+                <div class="question-text">What's hidden behind this line?</div>
+                <div class="chat-options">
+                    <div class="chat-option" data-correct="false">Just a birthday wish</div>
+                    <div class="chat-option" data-correct="true">Something deeper</div>
+                    <div class="chat-option" data-correct="false">A motivational quote</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section id="final" class="section">
+        <div class="final-overlay"></div>
+        <h2 class="section-title">The Red Diamond Theory</h2>
+        
+        <div class="diamond-theory">
+            <table class="attributes-table">
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Rarity</td>
+                    <td>Not just because of looks — but because of mindset.</td>
+                </tr>
+                <tr>
+                    <td>Strength</td>
+                    <td>Balances emotions, logic, and focus effortlessly.</td>
+                </tr>
+                <tr>
+                    <td>Shine</td>
+                    <td>Ambitious, creative, grounded, and kind.</td>
+                </tr>
+                <tr>
+                    <td>Value</td>
+                    <td>Doesn't need validation — already valuable.</td>
+                </tr>
+            </table>
+            
+            <div class="final-message">
+                <p>"And today, this gem turns a year wiser, stronger, and brighter."</p>
+                <p>"Wishing you all the success and peace you deserve, Alizay. Keep shining and inspiring everyone around you." ✨</p>
+            </div>
+        </div>
+        
+        <div class="secret-diamond floating" id="secretDiamond">
+            <div class="diamond" style="width: 100px; height: 100px;">
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-face"></div>
+                <div class="diamond-reflection"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Built with focus, respect, and appreciation — by Abdullah Khan.</p>
+        <p>Inspired by a personality that truly stands out.</p>
+    </footer>
+
+    <!-- Hidden Note Modal -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Hidden Note</h3>
+            <p class="modal-text" id="modalText"></p>
         </div>
     </div>
 
-    <div class="scene" id="mainScene" style="display: none;">
-        <!-- Stars Background -->
-        <div class="stars-background" id="stars-background"></div>
-
-        <!-- Canvas for realistic fireworks -->
-        <canvas id="fireworks-canvas"></canvas>
-
-        <!-- Audio Controls -->
-        <div class="audio-controls">
-            <button class="sound-btn" id="soundToggle">🔊</button>
-            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
-        </div>
-
-        <!-- Plane with Banner - Hidden at start -->
-        <div class="plane-container">
-            <div class="plane">
-                <div class="plane-body">
-                    <div class="plane-window"></div>
-                </div>
-                <div class="plane-wing"></div>
-                <div class="plane-tail"></div>
-                <div class="banner">I Love You! 💖</div>
-            </div>
-        </div>
-
-        <!-- Message Container with Infinite Swipe -->
-        <div class="message-container">
-            <div class="swipe-container" id="swipeContainer">
-                <!-- Paragraph 1 -->
-                <div class="paragraph active" id="para1">
-                    <div class="main-message">My Dearest Love 💕</div>
-                    <div class="sub-message">
-                        To my <span class="highlight">beautiful Marium</span>,<br><br>
-                        Every moment with you feels like a beautiful dream. Your smile lights up my world,
-                        and your love completes me in ways I never thought possible.
-                    </div>
-                </div>
-
-                <!-- Paragraph 2 -->
-                <div class="paragraph" id="para2">
-                    <div class="main-message">You Complete Me</div>
-                    <div class="sub-message">
-                        You saw the real me when I was hiding behind walls. Your love gave me courage,
-                        your presence gave me peace, and your belief in me gave me wings to fly higher than ever before.
-                    </div>
-                </div>
-
-                <!-- Paragraph 3 -->
-                <div class="paragraph" id="para3">
-                    <div class="main-message">My Best Friend</div>
-                    <div class="sub-message">
-                        You're not just my girlfriend - you're my best friend, my confidant, my greatest adventure, and
-                        my wife
-                        With you, every day is Special Day, and every moment is precious.
-                    </div>
-                </div>
-
-                <!-- Paragraph 4 -->
-                <div class="paragraph" id="para4">
-                    <div class="main-message">Forever Yours</div>
-                    <div class="sub-message">
-                        No matter where life takes us, my heart will always belong to you. The memories we've created
-                        and the love we share are the most beautiful chapters of my life story.
-                    </div>
-                </div>
-
-                <!-- Paragraph 5 -->
-                <div class="paragraph" id="para5">
-                    <div class="main-message">Your Beautiful Smile</div>
-                    <div class="sub-message">
-                        Your smile is my favorite sight in the world. It has the power to brighten my darkest days
-                        and make everything feel right. I fall in love with you all over again every time you smile.
-                    </div>
-                </div>
-
-                <!-- Paragraph 6 -->
-                <div class="paragraph" id="para6">
-                    <div class="main-message">My Safe Place</div>
-                    <div class="sub-message">
-                        In your arms, I've found my home. Your embrace is my sanctuary, your voice is my comfort,
-                        and your love is the anchor that keeps me grounded in this chaotic world.
-                    </div>
-                </div>
-
-                <!-- Paragraph 7 -->
-                <div class="paragraph" id="para7">
-                    <div class="main-message">Growing Together</div>
-                    <div class="sub-message">
-                        I love watching us grow together - learning, evolving, and becoming better versions of
-                        ourselves.
-                        With you by my side, I know we can conquer anything life throws our way.
-                    </div>
-                </div>
-
-                <!-- Paragraph 8 -->
-                <div class="paragraph" id="para8">
-                    <div class="main-message">Little Things</div>
-                    <div class="sub-message">
-                        It's not just the big moments, but the little things too - your morning texts, your laugh,
-                        the way your eyes sparkle when you're excited. These are the moments I treasure most.
-                    </div>
-                </div>
-
-                <!-- Paragraph 9 -->
-                <div class="paragraph" id="para9">
-                    <div class="main-message">My Inspiration</div>
-                    <div class="sub-message">
-                        You inspire me to be a better person every single day. Your strength, kindness, and compassion
-                        motivate me to reach for the stars and never settle for anything less than extraordinary.
-                    </div>
-                </div>
-
-                <!-- Paragraph 10 -->
-                <div class="paragraph" id="para10">
-                    <div class="main-message">With All My Love</div>
-                    <div class="sub-message">
-                        Thank you for being you - for your kindness, your laughter, and the incredible love you give me
-                        every day.<br><br>
-                        Forever and always,<br>
-                        Your <span class="heart">💖</span> Husband <br>
-                        Abdullah
-                    </div>
-                </div>
-            </div>
-
-            <!-- Progress Indicator -->
-            <div class="progress-indicator" id="progressIndicator">
-                Message <span id="currentMessage">1</span> of <span id="totalMessages">10</span>
-            </div>
-
-            <!-- Swipe Instructions -->
-            <div class="swipe-instruction">
-                <span class="swipe-arrow">←</span>
-                Swipe to read more love messages
-                <span class="swipe-arrow">→</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Audio Context for better sound management -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Audio Manager for local MP3 files
-        class AudioManager {
-            constructor() {
-                this.audioContext = null;
-                this.isMuted = false;
-                this.volume = 0.5;
-                this.soundBuffers = [];
-                this.isInitialized = false;
-
-                // List of your local firework MP3 files
-                this.localSoundFiles = [
-                    'Firework.mp3',
-                    'Firework.mp3',
-                    'Firework.mp3',
-                    'Firework.mp3'
-                ];
-            }
-
-            async init() {
-                try {
-                    // Create audio context
-                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-                    // Load local sound files
-                    await this.loadLocalSounds();
-                    this.isInitialized = true;
-                    console.log('Audio initialized successfully with local files');
-                } catch (error) {
-                    console.log('Audio initialization failed:', error);
-                    // Fallback to simple HTML audio if Web Audio API fails
-                    this.setupFallbackAudio();
+        // Initialize particles
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#d4af37" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#d4af37",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
                 }
             }
-
-            async loadLocalSounds() {
-                for (const filename of this.localSoundFiles) {
-                    try {
-                        const response = await fetch(filename);
-                        if (!response.ok) {
-                            throw new Error(`Failed to load ${filename}: ${response.status}`);
-                        }
-                        const arrayBuffer = await response.arrayBuffer();
-                        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
-                        this.soundBuffers.push(audioBuffer);
-                        console.log(`Loaded sound: ${filename}`);
-                    } catch (error) {
-                        console.log(`Error loading ${filename}:`, error);
-                    }
-                }
-
-                // If no sounds loaded, use fallback
-                if (this.soundBuffers.length === 0) {
-                    this.setupFallbackAudio();
-                }
-            }
-
-            setupFallbackAudio() {
-                console.log('Setting up fallback audio system');
-                // Create simple HTML audio elements as fallback
-                this.fallbackAudioElements = [];
-                for (const filename of this.localSoundFiles) {
-                    const audio = new Audio();
-                    audio.src = filename;
-                    audio.preload = 'auto';
-                    this.fallbackAudioElements.push(audio);
-                }
-                this.isInitialized = true;
-            }
-
-            playRandomFireworkSound() {
-                if (!this.isInitialized || this.isMuted) return;
-
-                try {
-                    if (this.soundBuffers.length > 0) {
-                        // Use Web Audio API
-                        const randomBuffer = this.soundBuffers[Math.floor(Math.random() * this.soundBuffers.length)];
-                        const source = this.audioContext.createBufferSource();
-                        const gainNode = this.audioContext.createGain();
-
-                        source.buffer = randomBuffer;
-                        gainNode.gain.value = this.volume;
-
-                        source.connect(gainNode);
-                        gainNode.connect(this.audioContext.destination);
-
-                        source.start(0);
-                    } else if (this.fallbackAudioElements && this.fallbackAudioElements.length > 0) {
-                        // Use fallback HTML audio
-                        const randomAudio = this.fallbackAudioElements[Math.floor(Math.random() * this.fallbackAudioElements.length)];
-                        const audioClone = randomAudio.cloneNode();
-                        audioClone.volume = this.volume;
-                        audioClone.play().catch(e => console.log('Fallback audio play failed:', e));
-                    }
-                } catch (error) {
-                    console.log('Error playing sound:', error);
-                }
-            }
-
-            toggleMute() {
-                this.isMuted = !this.isMuted;
-                const button = document.getElementById('soundToggle');
-                button.textContent = this.isMuted ? '🔇' : '🔊';
-            }
-
-            setVolume(value) {
-                this.volume = parseFloat(value);
-            }
-        }
-
-        // Initialize audio manager
-        const audioManager = new AudioManager();
-
-        // Start button functionality
-        document.getElementById('startBtn').addEventListener('click', async function () {
-            // Hide start screen
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('mainScene').style.display = 'block';
-
-            // Initialize audio
-            await audioManager.init();
-
-            // Start the main animation
-            initMainAnimation();
         });
 
-        // Create white star dots in background
-        function createStarDots() {
-            const starsContainer = document.getElementById('stars-background');
-            for (let i = 0; i < 300; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star-dot');
+        // Section management
+        const beginBtn = document.getElementById('beginBtn');
+        const continueBtn = document.getElementById('continueBtn');
+        
+        // Start the journey
+        beginBtn.addEventListener('click', () => {
+            // Scroll to letters section
+            document.getElementById('letters').scrollIntoView({ behavior: 'smooth' });
+            
+            // Animate letters
+            setTimeout(animateLetters, 500);
+        });
 
-                const size = Math.random() * 2 + 1; // Small white dots
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
+        // Continue button for letters section
+        continueBtn.addEventListener('click', () => {
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+        });
 
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Realistic Fireworks with Physics
-        const canvas = document.getElementById('fireworks-canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Firework particles
-        const particles = [];
-        const rockets = [];
-
-        // Romantic colors for fireworks
-        const colors = [
-            '#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff5252',
-            '#e91e63', '#f48fb1', '#f06292', '#ec407a',
-            '#ff4081', '#f50057', '#c2185b', '#ad1457',
-            '#ff80ab', '#ff4081', '#f50057', '#c51162'
-        ];
-
-        // Particle class
-        class Particle {
-            constructor(x, y, color, velocity, size = 2, decay = 0.015) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = velocity;
-                this.alpha = 1;
-                this.size = size;
-                this.decay = decay;
-                this.gravity = 0.01;
-                this.friction = 0.99;
-            }
-
-            update() {
-                this.velocity.x *= this.friction;
-                this.velocity.y *= this.friction;
-                this.velocity.y += this.gravity;
-
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-
-                this.alpha -= this.decay;
-
-                return this.alpha > 0;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Rocket class
-        class Rocket {
-            constructor(x, targetY, color) {
-                this.x = x;
-                this.y = canvas.height;
-                this.targetY = targetY;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 2,
-                    y: - (8 + Math.random() * 4)
-                };
-                this.trail = [];
-                this.exploded = false;
-            }
-
-            update() {
-                this.velocity.y *= 0.99;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-
-                // Add trail particles
-                if (Math.random() < 0.3) {
-                    this.trail.push(new Particle(
-                        this.x,
-                        this.y,
-                        this.color,
-                        { x: (Math.random() - 0.5) * 0.5, y: Math.random() * 1 },
-                        1.5,
-                        0.03
-                    ));
-                }
-
-                // Update trail
-                this.trail = this.trail.filter(particle => particle.update());
-
-                // Check if rocket should explode
-                if (this.y <= this.targetY && !this.exploded) {
-                    this.explode();
-                    this.exploded = true;
-                }
-
-                return !this.exploded || this.trail.length > 0;
-            }
-
-            explode() {
-                // Play firework sound
-                audioManager.playRandomFireworkSound();
-
-                const particleCount = 80 + Math.floor(Math.random() * 50);
-                const power = 3 + Math.random() * 2;
-
-                for (let i = 0; i < particleCount; i++) {
-                    const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.cos(Math.random() * Math.PI) * power;
-
-                    particles.push(new Particle(
-                        this.x,
-                        this.y,
-                        this.color,
-                        {
-                            x: Math.cos(angle) * speed,
-                            y: Math.sin(angle) * speed
-                        },
-                        Math.random() * 2 + 1,
-                        0.01
-                    ));
-                }
-
-                // Add secondary explosion for more realism
+        // Animate letters in sequence
+        function animateLetters() {
+            const letters = document.querySelectorAll('.letter');
+            let delay = 0;
+            
+            letters.forEach(letter => {
                 setTimeout(() => {
-                    for (let i = 0; i < 30; i++) {
-                        const angle = Math.random() * Math.PI * 2;
-                        const speed = Math.cos(Math.random() * Math.PI) * (power * 0.7);
+                    letter.classList.add('active');
+                }, delay);
+                delay += 1000;
+            });
+            
+            // Show continue button after all letters are visible
+            setTimeout(() => {
+                continueBtn.style.display = 'block';
+            }, delay + 500);
+        }
 
-                        particles.push(new Particle(
-                            this.x,
-                            this.y,
-                            colors[Math.floor(Math.random() * colors.length)],
-                            {
-                                x: Math.cos(angle) * speed,
-                                y: Math.sin(angle) * speed
-                            },
-                            Math.random() * 1.5 + 0.5,
-                            0.02
-                        ));
+        // Hidden notes functionality
+        const noteButtons = document.querySelectorAll('.note-btn');
+        const noteModal = document.getElementById('noteModal');
+        const modalText = document.getElementById('modalText');
+        const closeModal = document.querySelector('.close-modal');
+
+        const notes = {
+            1: "Jis tarah tum har situation handle karti ho na, lagta hai jese har mushkil cheez easy ban jati hai tumhare liye.",
+            2: "Jo banda apne dreams k liye mehnat karta hai, uska respect har kisi ke dil me khud b khud badh jata hai.",
+            3: "Tumhara nature aur presence dono itne calm aur unique hain ke banda sirf observe krta reh jata hai.",
+            4: "Inspiration woh hoti hai jo chhup kar bhi asar chhor jaye — tum wesi hi ho.",
+            5: "Jo insaan mehnat k sath attitude me simplicity rakhta hai, wohi asal me classy hota hai."
+        };
+
+        noteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const noteId = button.getAttribute('data-note');
+                modalText.textContent = notes[noteId];
+                noteModal.style.display = 'block';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            noteModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === noteModal) {
+                noteModal.style.display = 'none';
+            }
+        });
+
+        // Quiz functionality
+        let currentQuestion = 1;
+        let correctAnswers = 0;
+        const totalQuestions = 10;
+
+        // Update progress
+        function updateProgress() {
+            document.getElementById('progress').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+            document.getElementById('progressBar').style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+        }
+
+        // Show current question
+        function showQuestion(questionNum) {
+            // Hide all questions
+            for (let i = 1; i <= totalQuestions; i++) {
+                document.getElementById(`question${i}`).style.display = 'none';
+            }
+            // Show current question
+            document.getElementById(`question${questionNum}`).style.display = 'block';
+            updateProgress();
+        }
+
+        // Handle option selection
+        document.querySelectorAll('.chat-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const isCorrect = this.getAttribute('data-correct') === 'true';
+                const questionElement = this.closest('.chat-question');
+                
+                // Disable all options in this question
+                questionElement.querySelectorAll('.chat-option').forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+
+                // Visual feedback
+                if (isCorrect) {
+                    this.style.background = 'rgba(0, 255, 0, 0.2)';
+                    this.style.borderColor = 'green';
+                    correctAnswers++;
+                    
+                    // Create celebration effect
+                    const celebration = document.createElement('div');
+                    celebration.textContent = '✨';
+                    celebration.style.position = 'fixed';
+                    celebration.style.left = this.getBoundingClientRect().left + 'px';
+                    celebration.style.top = this.getBoundingClientRect().top + 'px';
+                    celebration.style.fontSize = '1.5rem';
+                    celebration.style.zIndex = '1000';
+                    celebration.style.animation = 'float 2s ease-out forwards';
+                    document.body.appendChild(celebration);
+                    
+                    setTimeout(() => {
+                        celebration.remove();
+                    }, 2000);
+                } else {
+                    this.style.background = 'rgba(255, 0, 0, 0.2)';
+                    this.style.borderColor = 'red';
+                }
+
+                // Show correct answer explanation
+                setTimeout(() => {
+                    let message = '';
+                    switch(currentQuestion) {
+                        case 1:
+                            message = "When you replied unexpectedly deep — I didn't expect that level of honesty. Your words had a profound impact that left me speechless.";
+                            break;
+                        case 2:
+                            message = "That your anger suits your personality — strong and fearless. It wasn't about being scary, but about admiring your powerful presence.";
+                            break;
+                        case 3:
+                            message = "That your energy is so strong, it makes everyone careful around you 😅. Your confidence commands respect in the most admirable way.";
+                            break;
+                        case 4:
+                            message = "Because you're rare, valuable, and too real to be copied. Just like a red diamond, you stand out with your authenticity and strength.";
+                            break;
+                        case 5:
+                            message = "That I'd always handle things with honesty and respect. It was a commitment to maintain transparency in our interactions.";
+                            break;
+                        case 6:
+                            message = "Because your reaction was too unpredictable and funny to handle 😭. Your spontaneous nature always brings genuine laughter.";
+                            break;
+                        case 7:
+                            message = "Because your ideas and attitude make any team stronger. Your professionalism and skills are truly remarkable.";
+                            break;
+                        case 8:
+                            message = "When you proved words aren't needed to show maturity. Your actions spoke louder than any explanation could.";
+                            break;
+                        case 9:
+                            message = "When you talked about your dreams and how you never settle. Your ambition and dedication are truly inspiring.";
+                            break;
+                        case 10:
+                            message = "It's a reminder that your energy is what makes you unique. This line captures everything that makes you special.";
+                            break;
                     }
-                }, 100 + Math.random() * 100);
+
+                    Swal.fire({
+                        title: isCorrect ? 'Correct! 🎉' : 'Almost!',
+                        text: message,
+                        icon: isCorrect ? 'success' : 'info',
+                        confirmButtonText: 'Continue',
+                        background: '#0a0a0a',
+                        color: '#f0f0f0',
+                        customClass: {
+                            popup: 'dark-swal'
+                        }
+                    }).then(() => {
+                        // Move to next question or show results
+                        if (currentQuestion < totalQuestions) {
+                            currentQuestion++;
+                            showQuestion(currentQuestion);
+                        } else {
+                            showResults();
+                        }
+                    });
+                }, 1000);
+            });
+        });
+
+        // Show final results
+        function showResults() {
+            const percentage = (correctAnswers / totalQuestions) * 100;
+            let message = '';
+            
+            if (percentage >= 90) {
+                message = "Your memory is absolutely incredible! You remember every detail of our conversations. 🧠💫";
+            } else if (percentage >= 70) {
+                message = "Amazing memory! You remember most of our meaningful exchanges. 🌟";
+            } else if (percentage >= 50) {
+                message = "Good memory! You remember the important moments that mattered. ✨";
+            } else {
+                message = "You remember the essence of our conversations - the feelings behind the words. 💭";
             }
 
-            draw() {
-                // Draw trail
-                this.trail.forEach(particle => particle.draw());
-
-                // Draw rocket
-                if (!this.exploded) {
-                    ctx.save();
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
+            Swal.fire({
+                title: 'Quiz Complete!',
+                html: `
+                    <div style="text-align: center;">
+                        <h3 style="color: #d4af37;">Score: ${correctAnswers}/${totalQuestions}</h3>
+                        <p>${message}</p>
+                        <p style="margin-top: 1rem; font-style: italic;">"The best conversations are the ones we remember not just with our minds, but with our hearts."</p>
+                    </div>
+                `,
+                icon: 'success',
+                confirmButtonText: 'Finish',
+                background: '#0a0a0a',
+                color: '#f0f0f0',
+                customClass: {
+                    popup: 'dark-swal'
                 }
-            }
+            }).then(() => {
+                document.getElementById('final').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.getElementById('secretDiamond').style.display = 'block';
+                }, 2000);
+            });
         }
 
-        // Create random fireworks - NEVER ENDING
-        function createRandomFirework() {
-            const x = Math.random() * canvas.width;
-            const targetY = 50 + Math.random() * (canvas.height / 2);
-            const color = colors[Math.floor(Math.random() * colors.length)];
-
-            rockets.push(new Rocket(x, targetY, color));
-        }
-
-        // Animation loop - NEVER STOPS
-        function animate() {
-            // Clear canvas with fade effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Update and draw rockets
-            for (let i = rockets.length - 1; i >= 0; i--) {
-                if (!rockets[i].update()) {
-                    rockets.splice(i, 1);
-                } else {
-                    rockets[i].draw();
-                }
-            }
-
-            // Update and draw particles
-            for (let i = particles.length - 1; i >= 0; i--) {
-                if (!particles[i].update()) {
-                    particles.splice(i, 1);
-                } else {
-                    particles[i].draw();
-                }
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        // Infinite Swipe functionality
-        let currentParagraph = 0;
-        const totalParagraphs = 10; // Now we have 10 paragraphs
-        let startX = 0;
-        let endX = 0;
-
-        function updateParagraphs() {
-            // Update all paragraphs
-            document.querySelectorAll('.paragraph').forEach((para, index) => {
-                para.classList.remove('active', 'prev', 'next');
-                if (index === currentParagraph) {
-                    para.classList.add('active');
-                } else if (index < currentParagraph) {
-                    para.classList.add('prev');
-                } else {
-                    para.classList.add('next');
+        // Secret diamond click
+        const secretDiamond = document.getElementById('secretDiamond');
+        
+        secretDiamond.addEventListener('click', () => {
+            Swal.fire({
+                title: 'A Special Message',
+                text: "Stay focused, stay kind, stay rare — the world needs more people like you.",
+                icon: 'info',
+                confirmButtonText: 'Thank You',
+                background: '#0a0a0a',
+                color: '#f0f0f0',
+                customClass: {
+                    popup: 'dark-swal'
                 }
             });
-
-            // Update progress indicator
-            document.getElementById('currentMessage').textContent = currentParagraph + 1;
-            document.getElementById('totalMessages').textContent = totalParagraphs;
-        }
-
-        function handleSwipe(direction) {
-            if (direction === 'left') {
-                // Infinite loop forward
-                currentParagraph = (currentParagraph + 1) % totalParagraphs;
-            } else if (direction === 'right') {
-                // Infinite loop backward
-                currentParagraph = (currentParagraph - 1 + totalParagraphs) % totalParagraphs;
-            }
-            updateParagraphs();
-        }
-
-        // Touch events for mobile
-        document.getElementById('swipeContainer').addEventListener('touchstart', (e) => {
-            startX = e.changedTouches[0].screenX;
         });
 
-        document.getElementById('swipeContainer').addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].screenX;
-            const diffX = endX - startX;
-
-            if (Math.abs(diffX) > 50) { // Minimum swipe distance
-                if (diffX > 0) {
-                    handleSwipe('right');
-                } else {
-                    handleSwipe('left');
-                }
-            }
-        });
-
-        // Mouse events for desktop
-        document.getElementById('swipeContainer').addEventListener('mousedown', (e) => {
-            startX = e.screenX;
-        });
-
-        document.getElementById('swipeContainer').addEventListener('mouseup', (e) => {
-            endX = e.screenX;
-            const diffX = endX - startX;
-
-            if (Math.abs(diffX) > 50) { // Minimum swipe distance
-                if (diffX > 0) {
-                    handleSwipe('right');
-                } else {
-                    handleSwipe('left');
-                }
-            }
-        });
-
-        // Keyboard navigation for accessibility
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                handleSwipe('left');
-            } else if (e.key === 'ArrowLeft') {
-                handleSwipe('right');
-            }
-        });
-
-        // Audio controls
-        document.getElementById('soundToggle').addEventListener('click', () => {
-            audioManager.toggleMute();
-        });
-
-        document.getElementById('volumeSlider').addEventListener('input', (e) => {
-            audioManager.setVolume(e.target.value);
-        });
-
-        // Initialize main animation
-        function initMainAnimation() {
-            createStarDots();
-            animate();
-
-            // Create initial fireworks
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    createRandomFirework();
-                }, i * 800);
-            }
-
-            // NEVER ENDING FIREWORKS - Continuous creation FOREVER
-            setInterval(() => {
-                createRandomFirework();
-            }, 600); // Create new fireworks every 600ms FOREVER
-
-            // Make plane visible when animation starts (at 10 seconds)
-            setTimeout(() => {
-                document.querySelector('.plane-container').style.opacity = '1';
-            }, 10000);
-
-            // Initialize paragraphs
-            updateParagraphs();
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        // Initialize first question
+        showQuestion(1);
     </script>
 </body>
-
 </html>
